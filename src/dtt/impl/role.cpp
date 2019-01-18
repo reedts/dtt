@@ -3,8 +3,8 @@
 namespace dtt {
 	namespace impl {
 
-		Role::Role(const std::string& name)
-			: _name {name}
+		Role::Role(const std::string& name, std::uint32_t gid)
+			: _name {name}, _gid {gid}
 		{
 
 		}

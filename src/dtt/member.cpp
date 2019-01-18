@@ -2,10 +2,15 @@
 
 namespace dtt {
 
-	Member::Member(const std::string& name, const std::string& mail_address, std::uint32_t matnr)
-		: _name {name}, _mail_address {mail_address}, _matnr {matnr}
+	Member::Member(const std::string& name, const std::string& mail_address, std::uint32_t matnr, std::uint32_t uid)
+		: _name {name}, _mail_address {mail_address}, _matnr {matnr}, _uid {uid}
 	{
 
+	}
+
+	std::uint32_t Member::uid() const
+	{
+		return _uid;
 	}
 
 	const std::string& Member::name() const

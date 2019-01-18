@@ -8,7 +8,7 @@ namespace dtt {
 
 		class Role : virtual ::dtt::Role {
 		public:
-			explicit Role(const std::string& name, std::uint32_t gid);
+			Role(const std::string& name, std::uint32_t gid);
 			virtual ~Role() = default;
 
 			virtual const std::string& name() const override;

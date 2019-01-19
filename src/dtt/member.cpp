@@ -27,4 +27,14 @@ namespace dtt {
 	{
 		return _matnr;
 	}
+
+	bool operator==(const Member& l, const Member& r)
+	{
+		return (l.uid() == l.uid() || (l.name() == r.name() || l.matnr() == r.matnr()));
+	}
+
+	bool operator!=(const Member& l, const Member& r)
+	{
+		return !(l == r);
+	}
 }

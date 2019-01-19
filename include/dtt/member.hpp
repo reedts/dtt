@@ -25,4 +25,7 @@ namespace dtt {
 		std::uint32_t _matnr;
 		// TODO: Roles
 	};
+
+	inline bool operator==(const Member& l, const Member& r);
+	inline bool operator!=(const Member& l, const Member& r);
 }

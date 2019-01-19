@@ -6,6 +6,8 @@ namespace dtt {
 
 	class Role {
 	public:
+		virtual ~Role() = default;
+
 		virtual const std::string& name() const = 0;
 		virtual std::uint32_t gid() const = 0;
 

@@ -11,3 +11,4 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/lib/DEBUG)
 include_directories(${CMAKE_SOURCE_DIR}/include/dtt)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/src/dtt)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/ndtt)

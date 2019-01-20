@@ -50,7 +50,7 @@ namespace dtt {
 		auto it = std::find_if(_members.begin(), _members.end(), [&](const auto& p) { return p.second.matnr() == matnr; });
 
 		if (it == _members.end()) {
-			throw std::invalid_argument {"no member with that name"};
+			throw std::invalid_argument {"no member with that matnr"};
 		}
 
 		return it->second;

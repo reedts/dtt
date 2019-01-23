@@ -17,6 +17,11 @@ namespace ndtt {
 			delwin(_win);
 		}
 
+		void Window::input(int c)
+		{
+
+		}
+
 		void Window::input(const std::string& in)
 		{
 

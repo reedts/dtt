@@ -56,6 +56,11 @@ namespace dtt {
 		return it->second;
 	}
 
+	std::size_t Member_manager::size() const
+	{
+		return _members.size();
+	}
+
 	Member_manager::const_iterator Member_manager::begin() const
 	{
 		return _members.begin();

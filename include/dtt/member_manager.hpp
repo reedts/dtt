@@ -23,6 +23,8 @@ namespace dtt {
 		const Member& get_member(const std::string& name) const;
 		const Member& get_member_by_matnr(std::uint32_t matnr) const;
 
+		std::size_t size() const;
+
 		const_iterator begin() const;
 		const_iterator end() const;
 		const_iterator cbegin() const;

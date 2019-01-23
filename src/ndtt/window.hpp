@@ -7,6 +7,7 @@ namespace ndtt {
 	 */
 	class Window {
 	public:
+		virtual void input(int c) = 0;
 		virtual void input(const std::string& in) = 0;
 		virtual void refresh() = 0;
 

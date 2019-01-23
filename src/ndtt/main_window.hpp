@@ -8,12 +8,17 @@
 #include "impl/window.hpp"
 #include "titlebar.hpp"
 
+namespace dtt {
+	class Member_manager;
+}
+
 namespace ndtt {
 
 	class Main_window : public virtual Window, public impl::Window {
 	public:
-		explicit Main_window(const std::string& title);
+		explicit Main_window(const std::string& title, dtt::Member_manager& manager);
 
+		void input(int c) override;
 		void input(const std::string& in) override;
 
 		void refresh() override;

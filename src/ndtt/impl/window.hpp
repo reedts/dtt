@@ -13,6 +13,7 @@ namespace ndtt {
 			Window(int width, int height, int x, int y);
 			virtual ~Window();
 
+			void input(int c) override;
 			void input(const std::string& in) override;
 			void refresh() override;
 
@@ -21,12 +22,12 @@ namespace ndtt {
 			int x() const override;
 			int y() const override;
 
-		protected:
 			void set_width(int width);
 			void set_height(int height);
 			void set_x(int x);
 			void set_y(int y);
 
+		protected:
 			WINDOW* _win {nullptr};
 
 		private:

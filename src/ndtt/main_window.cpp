@@ -1,16 +1,21 @@
 #include "main_window.hpp"
+#include <iostream>
 
 namespace ndtt {
 
+	static constexpr int theight = 3;
+
 	Main_window::Main_window(const std::string& title)
 	{
-		getmaxyx(stdscr, _height, _width);
-		_win = newwin(_height, _width, 0, 0);
-	}
+		int height, width;
+		getmaxyx(stdscr, height, width);
 
-	Main_window::~Main_window()
-	{
-		delwin(_win);
+		this->set_width(width);
+		this->set_y(theight + 1);
+		this->set_height(height - (theight + 1));
+
+		_titlebar = std::make_unique<Titlebar>(title, width, theight);
+		_titlebar->refresh();
 	}
 
 	void Main_window::input(const std::string& in)
@@ -28,7 +33,7 @@ namespace ndtt {
 
 	void Main_window::refresh()
 	{
-		wrefresh(_win);
+		impl::Window::refresh();
 	}
 
 	bool Main_window::is_exiting() const

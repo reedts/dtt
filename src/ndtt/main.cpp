@@ -7,17 +7,22 @@ int main(int argc, char* argv[])
 	initscr();
 	raw();
 	noecho();
-	ndtt::Main_window w {"Test"};
+	keypad(stdscr, TRUE);
+
+	refresh();
+	std::unique_ptr<ndtt::Main_window> w = std::make_unique<ndtt::Main_window>("dtt v0.1");
+	w->refresh();
+
 
 	while (true) {
 		int c = getch();
 
-		w.input({static_cast<char>(c)});
+		w->input({static_cast<char>(c)});
 
-		if (w.is_exiting()) {
+		if (w->is_exiting()) {
 			break;
 		} else {
-			w.refresh();
+			w->refresh();
 		}
 	}
 

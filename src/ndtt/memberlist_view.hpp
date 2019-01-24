@@ -15,6 +15,12 @@ namespace ndtt {
 
 	class Memberlist_view : public virtual Window, public impl::Window {
 	public:
+		static constexpr int cols = 4;
+		static constexpr int padding_top = 1;
+		static constexpr int padding_bottom = 1;
+		static constexpr int padding_left = 1;
+		static constexpr int padding_right = 1;
+
 		explicit Memberlist_view(dtt::Member_manager& manager);
 
 		void input(int c) override;

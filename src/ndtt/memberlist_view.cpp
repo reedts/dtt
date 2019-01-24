@@ -5,9 +5,6 @@
 
 namespace ndtt {
 
-	static constexpr int cols = 4;
-	static constexpr int margin_top = 2;
-
 	Memberlist_view::Memberlist_view(dtt::Member_manager& manager)
 		: _cols {"UID", "Matnr", "Name", "Mailaddress"}, _manager {manager}
 	{
@@ -56,7 +53,7 @@ namespace ndtt {
 		int cols_size = this->width() / cols;
 		int i = 0;
 		for (const auto& label : _cols) {
-			mvwaddstr(_win, this->y(), this->x() + 1 + i * cols_size, label.c_str());
+			mvwaddstr(_win, this->y(), this->x() + padding_left + i * cols_size, label.c_str());
 			++i;
 		}
 		wattroff(_win, A_BOLD);
@@ -65,10 +62,13 @@ namespace ndtt {
 	void Memberlist_view::draw_line(const dtt::Member& m, int pos)
 	{
 		int cols_size = this->width() / cols;
-		mvwaddstr(_win, this->y() + margin_top + pos, this->x() + 1, std::to_string(m.uid()).c_str());
-		mvwaddstr(_win, this->y() + margin_top + pos, this->x() + 1 + cols_size, std::to_string(m.matnr()).c_str());
-		mvwaddstr(_win, this->y() + margin_top + pos, this->x() + 1 + 2 * cols_size, m.name().c_str());
-		mvwaddstr(_win, this->y() + margin_top + pos, this->x() + 1 + 3 * cols_size, m.mail_address().c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left, std::to_string(m.uid()).c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + cols_size,
+			std::to_string(m.matnr()).c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 2 * cols_size, m.name().c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 3 * cols_size,
+			m.mail_address().c_str());
+
 		if (pos == _sel_idx) {
 			highlight_line(pos);
 		}
@@ -76,11 +76,13 @@ namespace ndtt {
 
 	void Memberlist_view::highlight_line(int pos)
 	{
-		mvwchgat(_win, this->y() + margin_top + pos, this->x() + 1, this->width() - 2, A_REVERSE, 0, NULL);
+		mvwchgat(_win, this->y() + padding_top + pos, this->x() + padding_left,
+			this->width() - (padding_left + padding_right), A_REVERSE, 0, NULL);
 	}
 
 	void Memberlist_view::dehighlight_line(int pos)
 	{
-		mvwchgat(_win, this->y() + margin_top + pos, this->x() + 1, this->width() - 2, A_NORMAL, 0, NULL);
+		mvwchgat(_win, this->y() + padding_top + pos, this->x() + padding_left,
+			this->width() - (padding_left + padding_right), A_NORMAL, 0, NULL);
 	}
 }

@@ -12,7 +12,7 @@ namespace ndtt {
 		getmaxyx(stdscr, height, width);
 
 		this->set_width(width);
-		this->set_y(theight + 1);
+		this->set_y(theight);
 		this->set_height(height - (theight + 1));
 
 		_titlebar = std::make_unique<Titlebar>(title, width, theight);

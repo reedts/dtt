@@ -5,28 +5,15 @@
 
 namespace ndtt {
 
-	Memberlist_view::Memberlist_view(dtt::Member_manager& manager)
-		: _cols {"UID", "Matnr", "Username", "Name", "Mailaddress"}, _manager {manager}
+	Memberlist_view::Memberlist_view(dtt::Member_manager& manager, int width, int height, int x, int y)
+		: impl::List_view {{"UID", "Matnr", "Username", "Name", "Mailaddress"}, manager.size(), width, height, x, y}
+		, _manager {manager}
 	{
 	}
 
 	void Memberlist_view::input(int c)
 	{
-		switch (c) {
-		case KEY_DOWN: {
-			/* Clear old marking */
-			dehighlight_line(_sel_idx);
-			_sel_idx = _sel_idx + 1 >= _manager.size() ? _sel_idx : _sel_idx + 1;
-			break;
-		}
-		case KEY_UP:
-			/* Clear old marking */
-			dehighlight_line(_sel_idx);
-			_sel_idx = _sel_idx - 1 < 0 ? _sel_idx : _sel_idx - 1;
-			break;
-		default:
-			break;
-		}
+		impl::List_view::input(c);
 	}
 
 	void Memberlist_view::input(const std::string& in)
@@ -37,31 +24,22 @@ namespace ndtt {
 	{
 		box(_win, 0, 0);
 		std::uint32_t i = 0;
-		draw_labels();
 
 		for (const auto& m : _manager) {
 			draw_line(m.second, i);
 			++i;
 		}
 
-		impl::Window::refresh();
-	}
-
-	void Memberlist_view::draw_labels()
-	{
-		wattron(_win, A_BOLD);
-		int cols_size = this->width() / cols;
-		int i = 0;
-		for (const auto& label : _cols) {
-			mvwaddstr(_win, this->y(), this->x() + padding_left + i * cols_size, label.c_str());
-			++i;
+		impl::List_view::refresh();
+		/* if we have an active dialog refresh it after the rest of the window */
+		if (_adialog) {
+			_adialog->refresh();
 		}
-		wattroff(_win, A_BOLD);
 	}
 
 	void Memberlist_view::draw_line(const dtt::Member& m, int pos)
 	{
-		int cols_size = this->width() / cols;
+		int cols_size = this->width() / _num_cols;
 		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left, std::to_string(m.uid()).c_str());
 		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + cols_size,
 			      std::to_string(m.matnr()).c_str());
@@ -75,15 +53,8 @@ namespace ndtt {
 		}
 	}
 
-	void Memberlist_view::highlight_line(int pos)
+	void Memberlist_view::open_add_dialog()
 	{
-		mvwchgat(_win, this->y() + padding_top + pos, this->x() + padding_left,
-			this->width() - (padding_left + padding_right), A_REVERSE, 0, NULL);
-	}
 
-	void Memberlist_view::dehighlight_line(int pos)
-	{
-		mvwchgat(_win, this->y() + padding_top + pos, this->x() + padding_left,
-			this->width() - (padding_left + padding_right), A_NORMAL, 0, NULL);
 	}
 }

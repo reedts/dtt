@@ -1,10 +1,11 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
-#include "window.hpp"
-#include "impl/window.hpp"
+#include "list_view.hpp"
+#include "impl/list_view.hpp"
 
 namespace dtt {
 	class Member;
@@ -13,15 +14,9 @@ namespace dtt {
 
 namespace ndtt {
 
-	class Memberlist_view : public virtual Window, public impl::Window {
+	class Memberlist_view : public virtual List_view, public impl::List_view {
 	public:
-		static constexpr int cols = 5;
-		static constexpr int padding_top = 1;
-		static constexpr int padding_bottom = 1;
-		static constexpr int padding_left = 1;
-		static constexpr int padding_right = 1;
-
-		explicit Memberlist_view(dtt::Member_manager& manager);
+		explicit Memberlist_view(dtt::Member_manager& manager, int width = 0, int height = 0, int x = 0, int y = 0);
 
 		void input(int c) override;
 		void input(const std::string& in) override;
@@ -29,13 +24,11 @@ namespace ndtt {
 		void refresh() override;
 
 	private:
-		void draw_labels();
 		void draw_line(const dtt::Member& m, int pos);
-		void highlight_line(int pos);
-		void dehighlight_line(int pos);
 
-		std::vector<std::string> _cols;
-		int _sel_idx {0};
+		void open_add_dialog();
+
+		std::unique_ptr<Window> _adialog {nullptr};
 		dtt::Member_manager& _manager;
 	};
 }

@@ -12,16 +12,13 @@ namespace ndtt {
 		getmaxyx(stdscr, height, width);
 
 		this->set_width(width);
-		this->set_y(theight);
+		this->set_y(theight + 1);
 		this->set_height(height - (theight + 1));
 
 		_titlebar = std::make_unique<Titlebar>(title, width, theight);
-		_awin     = std::make_unique<Memberlist_view>(manager);
-		_awin->set_y(this->y());
-		_awin->set_width(width);
-		_awin->set_height(this->height());
 
-		_awin->refresh();
+		_awin     = std::make_unique<Memberlist_view>(manager, width, this->height(), 0, this->y());
+
 		_titlebar->refresh();
 	}
 

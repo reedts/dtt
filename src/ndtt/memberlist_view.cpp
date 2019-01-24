@@ -6,7 +6,7 @@
 namespace ndtt {
 
 	Memberlist_view::Memberlist_view(dtt::Member_manager& manager)
-		: _cols {"UID", "Matnr", "Name", "Mailaddress"}, _manager {manager}
+		: _cols {"UID", "Matnr", "Username", "Name", "Mailaddress"}, _manager {manager}
 	{
 	}
 
@@ -64,10 +64,11 @@ namespace ndtt {
 		int cols_size = this->width() / cols;
 		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left, std::to_string(m.uid()).c_str());
 		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + cols_size,
-			std::to_string(m.matnr()).c_str());
-		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 2 * cols_size, m.name().c_str());
-		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 3 * cols_size,
-			m.mail_address().c_str());
+			      std::to_string(m.matnr()).c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 2 * cols_size, m.uname().c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 3 * cols_size, m.name().c_str());
+		mvwaddstr(_win, this->y() + padding_top + pos, this->x() + padding_left + 4 * cols_size,
+			      m.mail_address().c_str());
 
 		if (pos == _sel_idx) {
 			highlight_line(pos);

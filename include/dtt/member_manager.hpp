@@ -17,10 +17,12 @@ namespace dtt {
 		Member_manager(const Member_manager&) = delete;
 		Member_manager& operator=(const Member_manager&) = delete;
 
-		void add_member(const std::string& name, const std::string& mail_address, std::uint32_t matnr);
+		void add_member(const std::string& name, const std::string& uname, const std::string& mail_address,
+			            std::uint32_t matnr);
 
 		const Member& get_member(std::uint32_t uid) const;
 		const Member& get_member(const std::string& name) const;
+		const Member& get_member_by_uname(const std::string& uname) const;
 		const Member& get_member_by_matnr(std::uint32_t matnr) const;
 
 		std::size_t size() const;

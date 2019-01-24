@@ -4,7 +4,8 @@
 
 namespace dtt {
 
-	void Member_manager::add_member(const std::string& name, const std::string& mail_address, std::uint32_t matnr)
+	void Member_manager::add_member(const std::string& name, const std::string& uname, const std::string& mail_address,
+		                            std::uint32_t matnr)
 	{
 		const std::regex mail_validation {"(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+"};
 
@@ -19,7 +20,7 @@ namespace dtt {
 			throw std::invalid_argument {"user already exists"};
 		}
 
-		_members.emplace(_nid, Member {name, mail_address, matnr, _nid});
+		_members.emplace(_nid, Member {name, uname, mail_address, matnr, _nid});
 		++_nid;
 	}
 
@@ -40,6 +41,17 @@ namespace dtt {
 
 		if (it == _members.end()) {
 			throw std::invalid_argument {"no member with that name"};
+		}
+
+		return it->second;
+	}
+
+	const Member& Member_manager::get_member_by_uname(const std::string& uname) const
+	{
+		auto it = std::find_if(_members.begin(), _members.end(), [&](const auto& p) {return p.second.uname() == uname; });
+
+		if (it == _members.end()) {
+			throw std::invalid_argument {"no member with that username"};
 		}
 
 		return it->second;
